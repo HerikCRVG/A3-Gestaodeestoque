@@ -10,7 +10,7 @@ SELECT * FROM funcionarios;
 select * from entrada;
 
 SELECT entrada.*, produto.nomeProdutos as nomeProdutos FROM entrada
-LEFT JOIN produto on entrada.id_Produtos = produto.idProduto
+LEFT JOIN produto on entrada.id_Produtos = produto.idProduto;
 
 SELECT  saida.*, produto.nomeProdutos as nomeProdutos FROM saida
 LEFT JOIN produto on saida.id_Produtos = produto.idProduto;
@@ -30,13 +30,13 @@ ALTER TABLE funcionarios DROP INDEX idFuncionarios;
 
 CREATE TABLE IF NOT EXISTS produto (
     idProduto INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    d VARCHAR(200) UNIQUE,
+    nomeProdutos VARCHAR(200) UNIQUE,
     categoria VARCHAR(200),
     preco DOUBLE NOT NULL,
     quantidade INT NOT NULL,
 );
 
-CREATE TABLE IF NOT EXISTS funcionarios
+CREATE TABLE IF NOT EXISTS funcionarios (
     idFuncionarios INT PRIMARY KEY AUTO_INCREMENT,
     nomeFuncionario VARCHAR(200),
     cargo VARCHAR(200) NOT NULL,
