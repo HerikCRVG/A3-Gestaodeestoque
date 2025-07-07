@@ -29,15 +29,13 @@ public class ConsultasDAO {
  public List<Consultas> listarEstoqueCalculado() {
     List<Consultas> lista = new ArrayList<>();
 
-    String sql = "SELECT " +
-                 "p.idProduto, p.nomeProdutos, p.categoria,  " +
-                 "COALESCE(SUM(e.quantidade), 0) AS totalEntradas, " +
-                 "COALESCE(SUM(s.quantidade), 0) AS totalSaidas, " +
-                 "(COALESCE(SUM(e.quantidade), 0) - COALESCE(SUM(s.quantidade), 0)) AS estoqueAtual " +
-                 "FROM produto p " +
-                 "LEFT JOIN entrada e ON p.idProduto = e.id_Produtos " +
-                 "LEFT JOIN saida s ON p.idProduto = s.id_Produtos " +
-                 "GROUP BY p.idProduto, p.nomeProdutos, p.categoria";
+   String sql = "SELECT " +
+             "p.idProduto, p.nomeProdutos, p.categoria, " +
+             "COALESCE((SELECT SUM(e.quantidade) FROM entrada e WHERE e.id_Produtos = p.idProduto), 0) AS totalEntradas, " +
+             "COALESCE((SELECT SUM(s.quantidade) FROM saida s WHERE s.id_Produtos = p.idProduto), 0) AS totalSaidas, " +
+             "(COALESCE((SELECT SUM(e.quantidade) FROM entrada e WHERE e.id_Produtos = p.idProduto), 0) - " +
+             " COALESCE((SELECT SUM(s.quantidade) FROM saida s WHERE s.id_Produtos = p.idProduto), 0)) AS estoqueAtual " +
+             "FROM produto p";
 
     try {
         Connection conn = Datab.getConnection(); // Certifique-se que sua conexão funciona
