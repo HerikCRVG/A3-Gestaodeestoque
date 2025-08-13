@@ -8,7 +8,7 @@ public class Datab{
     private static final String JDBC_DRIVE = "com.mysql.cj.jdbc.Driver";
     private static final String URL        = "jdbc:mysql://localhost:3306/estoque";
     private static final String USER       = "herik";
-    private static final String PASS       = "G@bs2911";
+    private static final String PASS       = "";
 
 
     public static Connection getConnection(){
